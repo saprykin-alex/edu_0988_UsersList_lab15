@@ -1,7 +1,9 @@
 package com.example.myappuserslist1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
     //Объект-держатель представления
     //Создание отдельного элемента списка
-    private class UserHolder extends RecyclerView.ViewHolder{
+    private class UserHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //Добавляем TextView
         TextView itemTextView;
         //Конструктор UserHolder
@@ -51,11 +53,22 @@ public class MainActivity extends AppCompatActivity {
             super(layoutInflater.inflate(R.layout.single_item, viewGroup, false));
             //Связываем элемент типа TextView с itemTextView в представлении
             itemTextView = itemView.findViewById(R.id.itemTextView);
+            //Задействуем интерфейс View.OnClickListener
+            itemView.setOnClickListener(this);
+
         }
         //Помещаем в объект представления TextView имя пользователя
         public void bind(String userName){
             //Передаём элементу TextView имя пользователя
             itemTextView.setText(userName);
+        }
+
+        //Метод, обрабатывающий клик на пользователе
+        @Override
+        public void onClick(View view) {
+
+            Intent intent = new Intent(MainActivity.this, UserinfoActivity.class);
+            startActivity(intent);
         }
     }
     //описание класса типа Адаптер, связывающего представление с данными для этого представления

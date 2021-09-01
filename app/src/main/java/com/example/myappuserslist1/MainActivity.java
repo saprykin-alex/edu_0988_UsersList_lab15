@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         public UserAdapter(ArrayList<String> users) {
             this.users = users;
         }
-        //Метод для передачи данных в UserHolder по одному пользователю
+        //Метод для передачи данных в элемент списка пользователей
         @Override
         public UserHolder onCreateViewHolder( ViewGroup parent, int viewType) {
             //Создаём LayoutInflater, который из содержимого layout-файла создаёт View-элемент

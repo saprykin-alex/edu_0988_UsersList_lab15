@@ -1,8 +1,9 @@
 package com.example.myappuserslist1;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class User {
+public class User implements Serializable {
     private String userName;
     private String userLastName;
     private String phone;

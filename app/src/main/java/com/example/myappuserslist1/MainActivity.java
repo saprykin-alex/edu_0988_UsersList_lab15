@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,63 +14,77 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+//Класс основной Активности визуального интерфейса
 public class MainActivity extends AppCompatActivity {
-
+    //Добавляем в активность элемент представления recyclerView;
     RecyclerView recyclerView;
+    //Добавляем в активность адаптер
     UserAdapter userAdapter;
+    //Создаём список пользователей
     ArrayList<String> userList = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        //Связываем создаваемую активность с layout-файлом activity_main.xml
         setContentView(R.layout.activity_main);
+        //Создаём список пользователей
         for (int i = 0; i < 100; i++) {
             userList.add("Пользователь "+i);
         }
-
-
         //Связываем элемент recyclerView в представлении с активностью через его id
         recyclerView = findViewById(R.id.recyclerView);
-        //Задаём recyclerView в виде списка
+        //Задаём recyclerView в виде списка для данной активности, указав в качестве контекста основную активность
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        //Создаём новый адаптер и передаём ему список пользователей для отображения
         userAdapter = new UserAdapter(userList);
-        //Адаптер размещает строчки recyclerView
+        //Адаптер размещает строчки в recyclerView
         recyclerView.setAdapter(userAdapter);
-
-
-
     }
-    //Объект держатель представления
+    //Объект-держатель представления
+    //Создание отдельного элемента списка
     private class UserHolder extends RecyclerView.ViewHolder{
-
+        //Добавляем TextView
+        TextView itemTextView;
+        //Конструктор UserHolder
         public UserHolder(LayoutInflater layoutInflater, ViewGroup viewGroup) {
-
+            //Вызов текущего экземпляра родительнского класса с указанием макета элемента
             super(layoutInflater.inflate(R.layout.single_item, viewGroup, false));
+            //Связываем элемент типа TextView с itemTextView в представлении
+            itemTextView = itemView.findViewById(R.id.itemTextView);
+        }
+        //Помещаем в объект представления TextView имя пользователя
+        public void bind(String userName){
+            //Передаём элементу TextView имя пользователя
+            itemTextView.setText(userName);
         }
     }
-
-    //Адаптер, привязывающий представления к данным этих представлений
+    //описание класса типа Адаптер, связывающего представление с данными для этого представления
     private class UserAdapter extends RecyclerView.Adapter<UserHolder>{
+        //Список пользователей в адаптере
         ArrayList<String> users;
-        //Передаём конструктору список элементов
+        //Передаём конструктору список пользователей
         public UserAdapter(ArrayList<String> users) {
             this.users = users;
         }
-
-        @NonNull
+        //Метод для передачи данных в UserHolder по одному пользователю
         @Override
-        public UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public UserHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+            //Создаём LayoutInflater, который из содержимого layout-файла создаёт View-элемент
             LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+            //Возвращаем данные для элемента с одним пользователем
             return new UserHolder(layoutInflater, parent);
         }
-
+        //Метод для привязки объекта UserHolder к конкретному пользователю
         @Override
-        public void onBindViewHolder(@NonNull UserHolder holder, int position) {
-
+        public void onBindViewHolder(UserHolder holder, int position) {
+            //Берём пользователя из списка по номеру позиции в списке
+            String user = users.get(position);
+            //Вызываем метод связывания и передаём в него пользователя
+            holder.bind(user);
         }
-
+        //Возвращает общее количество пользователей
         @Override
         public int getItemCount() {
             return users.size();

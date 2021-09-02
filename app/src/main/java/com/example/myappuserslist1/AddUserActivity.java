@@ -37,12 +37,21 @@ public class AddUserActivity extends AppCompatActivity {
             editUser = true;
         }else{
             user = new User();
+            editUser = false;
         }
 
         formAddUserBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                User user = new User();
+                user.setUserName(editTextUserName.getText().toString());
+                user.setUserLastName(editTextUserLastName.getText().toString());
+                user.setPhone(editTextPhone.getText().toString());
+
+                Users users = new Users(AddUserActivity.this);
+                users.addUser(user);
+                onBackPressed();
             }
         });
 

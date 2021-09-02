@@ -33,17 +33,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //Связываем создаваемую активность с layout-файлом activity_main.xml
         setContentView(R.layout.activity_main);
-        //Создаём список пользователей
-        for (int i = 0; i < 100; i++) {
-            User user = new User();
-            user.setUserName("Пользователь "+i);
-            user.setUserLastName("Фамилия "+i);
-            userList.add(user);
-        }
         //Связываем элемент recyclerView в представлении с активностью через его id
         recyclerView = findViewById(R.id.recyclerView);
         //Задаём recyclerView в виде списка для данной активности, указав в качестве контекста основную активность
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        //Получаем список пользователей из класса Users
+        Users users = new Users(MainActivity.this);
+        userList = users.getUserList();
         //Создаём новый адаптер и передаём ему список пользователей для отображения
         userAdapter = new UserAdapter(userList);
         //Адаптер размещает строчки в recyclerView

@@ -9,6 +9,10 @@ public class User implements Serializable {
     private String phone;
     private UUID uuid;
 
+    public User(UUID uuid){
+        this.uuid = uuid;
+    }
+
     public User() {
         this.uuid = UUID.randomUUID();
     }

@@ -31,11 +31,13 @@ public class AddUserActivity extends AppCompatActivity {
         formAddUserBtnAdd = findViewById(R.id.formAdduserBtnAdd);
         formAddUserBtnDelete = findViewById(R.id.formAdduserBtnDelete);
         if (user != null){
+            formAddUserBtnAdd.setText("Изменить");
             editTextUserName.setText(user.getUserName());
             editTextUserLastName.setText(user.getUserLastName());
             editTextPhone.setText(user.getPhone());
             editUser = true;
         }else{
+            formAddUserBtnAdd.setText("Добавить");
             user = new User();
             editUser = false;
         }
@@ -44,13 +46,24 @@ public class AddUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                User user = new User();
-                user.setUserName(editTextUserName.getText().toString());
-                user.setUserLastName(editTextUserLastName.getText().toString());
-                user.setPhone(editTextPhone.getText().toString());
 
-                Users users = new Users(AddUserActivity.this);
-                users.addUser(user);
+                if(editUser){
+                    user.setUserName(editTextUserName.getText().toString());
+                    user.setUserLastName(editTextUserLastName.getText().toString());
+                    user.setPhone(editTextPhone.getText().toString());
+
+                    Users users = new Users(AddUserActivity.this);
+                    users.updateUser(user, user.getUuid());
+                }else{
+                    User user = new User();
+                    user.setUserName(editTextUserName.getText().toString());
+                    user.setUserLastName(editTextUserLastName.getText().toString());
+                    user.setPhone(editTextPhone.getText().toString());
+
+                    Users users = new Users(AddUserActivity.this);
+                    users.addUser(user);
+                }
+
                 onBackPressed();
             }
         });

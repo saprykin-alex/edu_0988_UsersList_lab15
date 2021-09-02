@@ -38,14 +38,7 @@ public class MainActivity extends AppCompatActivity {
         //Задаём recyclerView в виде списка для данной активности, указав в качестве контекста основную активность
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         //Получаем список пользователей из класса Users
-        Users users = new Users(MainActivity.this);
-        userList = users.getUserList();
-        //Создаём новый адаптер и передаём ему список пользователей для отображения
-        userAdapter = new UserAdapter(userList);
-        //Адаптер размещает строчки в recyclerView
-        recyclerView.setAdapter(userAdapter);
         addUserBtn = findViewById(R.id.addUserBtn);
-
         addUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,6 +48,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    private void recyclerViewInit(){
+        Users users = new Users(MainActivity.this);
+        userList = users.getUserList();
+        //Создаём новый адаптер и передаём ему список пользователей для отображения
+        userAdapter = new UserAdapter(userList);
+        //Адаптер размещает строчки в recyclerView
+        recyclerView.setAdapter(userAdapter);
+    }
+
+    //Обновляем пользователей на основной активности
+    @Override
+    public void onResume(){
+        super.onResume();
+        recyclerViewInit();
+    }
+
+
     //Объект-держатель представления
     //Создание отдельного элемента списка
     private class UserHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

@@ -9,6 +9,7 @@ import com.example.myappuserslist1.database.UserBaseHelper;
 import com.example.myappuserslist1.database.UserDbSchema;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Users {
     private ArrayList<User> userList;
@@ -23,8 +24,12 @@ public class Users {
     public void addUser(User user){
         ContentValues values = getContentValues(user);
         database.insert(UserDbSchema.UserTable.NAME, null, values);
+    }
 
-
+    public void updateUser(User user, UUID uuid){
+        ContentValues values = getContentValues(user);
+        String str = uuid.toString().substring(24);
+        database.update(UserDbSchema.UserTable.NAME, values, UserDbSchema.Cols.UUID+"="+uuid.toString(), null);
     }
 
     private static ContentValues getContentValues(User user){

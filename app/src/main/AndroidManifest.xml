@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAppUsersListlab1316">
         <activity
+            android:name=".AddUserActivity"
+            android:exported="true" />
+        <activity
             android:name=".UserinfoActivity"
             android:exported="true" />
         <activity

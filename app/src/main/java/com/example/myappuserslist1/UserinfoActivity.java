@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
-
+//Переход к активности с информацией о пользователе
 public class UserinfoActivity extends AppCompatActivity {
     private TextView userNameTextView;
     private TextView phoneTextView;

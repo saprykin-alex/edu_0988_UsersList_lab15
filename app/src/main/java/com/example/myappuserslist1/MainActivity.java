@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -22,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     UserAdapter userAdapter;
     //Создаём список пользователей
     ArrayList<User> userList = new ArrayList<>();
+    //Переменная для кнопки Добавления пользователя
+    Button addUserBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,16 @@ public class MainActivity extends AppCompatActivity {
         userAdapter = new UserAdapter(userList);
         //Адаптер размещает строчки в recyclerView
         recyclerView.setAdapter(userAdapter);
+        addUserBtn = findViewById(R.id.addUserBtn);
+
+        addUserBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddUserActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
     //Объект-держатель представления
     //Создание отдельного элемента списка
@@ -73,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             //Интент для клика
-            Intent intent = new Intent(MainActivity.this, UserinfoActivity.class);
+            Intent intent = new Intent(MainActivity.this, AddUserActivity.class);//UserinfoActivity.class);
             //Передаём в интент данные о выбранном пользователе
             intent.putExtra("user", user);  //класс пользователя должен быть серилизуемым
             startActivity(intent);

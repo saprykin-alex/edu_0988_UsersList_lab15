@@ -28,8 +28,15 @@ public class Users {
 
     public void updateUser(User user, UUID uuid){
         ContentValues values = getContentValues(user);
-        String str = uuid.toString().substring(24);
-        database.update(UserDbSchema.UserTable.NAME, values, UserDbSchema.Cols.UUID+"="+uuid.toString(), null);
+        String str = uuid.toString();
+        System.out.println("!!!!!!!!!!!update!!!!!!!!!!"+str);
+        database.update(UserDbSchema.UserTable.NAME, values, "uuid = ?",new String[] {str});
+    }
+
+    public void deleteUser(UUID uuid){
+        String str = uuid.toString();
+        database.delete(UserDbSchema.UserTable.NAME, "uuid = ?",new String[] {str});
+
     }
 
     private static ContentValues getContentValues(User user){

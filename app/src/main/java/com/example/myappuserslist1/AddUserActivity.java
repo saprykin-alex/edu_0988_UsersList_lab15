@@ -69,17 +69,12 @@ public class AddUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(editUser){
-                    user.setUserName(editTextUserName.getText().toString());
-                    user.setUserLastName(editTextUserLastName.getText().toString());
-                    user.setPhone(editTextPhone.getText().toString());
-
                     Users users = new Users(AddUserActivity.this);
                     users.deleteUser(user.getUuid());
                 }else{
                     user = null;
                 }
                 onBackPressed();
-
             }
         });
 

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,12 +40,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         //Получаем список пользователей из класса Users
         addUserBtn = findViewById(R.id.addUserBtn);
-        addUserBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddUserActivity.class);
-                startActivity(intent);
-            }
+        addUserBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, AddUserActivity.class);
+            startActivity(intent);
         });
 
     }
@@ -109,8 +107,9 @@ public class MainActivity extends AppCompatActivity {
             this.users = users;
         }
         //Метод для передачи данных в элемент списка пользователей
+        @NonNull
         @Override
-        public UserHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+        public UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             //Создаём LayoutInflater, который из содержимого layout-файла создаёт View-элемент
             LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
             //Возвращаем данные для элемента с одним пользователем
